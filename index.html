@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageConverter by RockyEmpire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="ImageConverter by RockyEmpire - A free online tool to convert images to different formats instantly. Supports PNG, JPEG, WebP, GIF, BMP, and TIFF.">
+    <meta name="keywords" content="image converter, convert image, online image editor, PNG converter, JPEG converter">
+    <meta name="author" content="RockyEmpire">
+    <meta property="og:title" content="ImageConverter by RockyEmpire">
+    <meta property="og:description" content="Convert Images to Different Formats Instantly">
+    <meta property="og:image" content="https://rockyempire.org/favicon.png">
+    <meta property="og:url" content="https://rockyempire.org/imageconverter">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ImageConverter by RockyEmpire">
+    <meta name="twitter:description" content="Convert Images to Different Formats Instantly">
+    <meta name="twitter:image" content="https://rockyempire.org/favicon.png">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d0d0d;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3.5em;
+            color: #a855f7;
+            text-shadow: 0 0 20px #a855f7, 0 0 40px #a855f7;
+            margin-bottom: 10px;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+            }
+            to {
+                text-shadow: 0 0 20px #a855f7, 0 0 40px #a855f7;
+            }
+        }
+        p.subtitle {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        .top-left-links {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+        .top-left-links a {
+            margin-right: 15px;
+            color: #a855f7;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .upload-label {
+            padding: 14px 24px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: 0.3s;
+            background: #a855f7;
+            color: white;
+            box-shadow: 0 0 10px #a855f7;
+            margin-bottom: 20px;
+        }
+        .upload-label:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        .buttons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 14px 24px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .btn-convert {
+            background: #22d3ee;
+            color: white;
+            box-shadow: 0 0 10px #22d3ee;
+        }
+        .btn-download {
+            background: #facc15;
+            color: black;
+            box-shadow: 0 0 10px #facc15;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        .btn-clear {
+            background: #ff4d4d;
+            color: white;
+            box-shadow: 0 0 10px #ff4d4d;
+        }
+        button:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        .image-container {
+            margin-top: 20px;
+            max-width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 3px solid #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+            margin-bottom: 20px;
+        }
+        .ad-space {
+            width: 100%;
+            height: 90px;
+            background: linear-gradient(45deg, #a855f7, #1a1a1a);
+            margin: 20px 0;
+            text-align: center;
+            color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #a855f7;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 0 5px #fff;
+            line-height: 90px;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        .loading {
+            display: none;
+            font-size: 18px;
+            color: #22d3ee;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-left-links">
+        <a href="https://patreon.rockyempire.org" target="_blank"><i class="fab fa-patreon"></i> Patreon</a>
+        <a href="https://discord.rockyempire.org" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </div>
+    <h1><i class="fas fa-image"></i> ImageConverter</h1>
+    <p class="subtitle">Convert Images to Different Formats Instantly</p>
+    <div class="ad-space">Ad Space</div>
+    <label for="imageInput" class="upload-label"><i class="fas fa-upload"></i> Upload Image</label>
+    <input type="file" id="imageInput" accept="image/*">
+    <div class="buttons">
+        <button class="btn-convert" onclick="convertImage('png')"><i class="fas fa-file-image"></i> Convert to PNG</button>
+        <button class="btn-convert" onclick="convertImage('jpeg')"><i class="fas fa-file-image"></i> Convert to JPEG</button>
+        <button class="btn-convert" onclick="convertImage('webp')"><i class="fas fa-file-image"></i> Convert to WebP</button>
+        <button class="btn-clear" onclick="clearImage()"><i class="fas fa-trash"></i> Clear</button>
+    </div>
+    <button class="btn-download" onclick="downloadImage()" style="display: none;"><i class="fas fa-download"></i> Download</button>
+    <div class="loading" id="loading">Converting... <i class="fas fa-spinner fa-spin"></i></div>
+    <div class="image-container">
+        <img id="convertedImage" src="" alt="Converted Image" style="display: none;">
+    </div>
+    <footer>© 2025 ImageConverter by RockyEmpire | <a href="https://rockyempire.org/privacy-policy">Privacy Policy</a></footer>
+    <script>
+        let convertedImageBlob = null;
+
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('convertedImage');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    document.querySelector('.btn-download').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function convertImage(format) {
+            const file = document.getElementById('imageInput').files[0];
+            if (file) {
+                document.getElementById('loading').style.display = 'block';
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob(function(blob) {
+                            convertedImageBlob = blob;
+                            const url = URL.createObjectURL(blob);
+                            const convertedImg = document.getElementById('convertedImage');
+                            convertedImg.src = url;
+                            document.querySelector('.btn-download').style.display = 'inline-block';
+                            document.getElementById('loading').style.display = 'none';
+                        }, `image/${format}`, 1.0);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function downloadImage() {
+            if (convertedImageBlob) {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(convertedImageBlob);
+                a.download = `converted_image.${convertedImageBlob.type.split('/')[1]}`;
+                a.click();
+            }
+        }
+
+        function clearImage() {
+            document.getElementById('imageInput').value = '';
+            document.getElementById('convertedImage').src = '';
+            document.getElementById('convertedImage').style.display = 'none';
+            document.querySelector('.btn-download').style.display = 'none';
+            convertedImageBlob = null;
+        }
+    </script>
+</body>
+</html>
